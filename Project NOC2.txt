@@ -1,0 +1,30 @@
+Project NOC2
+Nuclearcraft + OpenComputers Controler Requirements
+
+NOC1 had several problems such as using more than 1 computer to control a large number of components that were unable to communicate with each other. NOC2 fixes many of the issues such as centralizing and simplifying all programs and moving all controls onto one computer.
+
+Requirements:
+= ALL NOC1 Requirements:
+ - Type 1 Safety 			: Completed
+ - Tick Counter Dating 			: Completed
+ - Multi-Program Access 		: N/A - OS does not support this feature.
+ - Heat Exchanger Control 		: Completed
+ - Immersive Technology Integration	: Completed
+  - Steam Turbine Control		: Completed
+  - Cooling Tower Control		: N/A - Cooling Tower support removed by mod
+
+= NOC2 Specific Requirements: 
+ -1 Coolant Tanks Monitoring		: Completed
+ -2 Type 2 Safety			: N/A - NC does not support this feature
+ -3 Type 3 Safety (Optional)		: NotStarted
+ -4 Single Button Start/Stop		: Completed
+ -5 Emergency Coolant Auto Control	: Completed
+ -6 Sound Based Warning System		: Completed
+
+Requirement Explanations:
+-1 Coolant Tanks must be monitored by the Program in some way. Intake, Output, and Temp are a must.
+-2 Type 2 Safety: Reactor Turns off if it does not receive a signal from the program confirming that it is running.
+-3 Type 3 Safety: Combine Type 1 and Type 2 with the following additions. Disable all fuel production, void all contents of the reactor and force new fresh coolant into the reactor.
+-4 Must start and stop with one button press.
+-5 ECAC: Constantly Refresh and cool Emergency Coolant. Void any used E-Coolant to save space.
+-6 If meltdown is inevitable with the current input configuration or the flow of coolant is interrupted, give an audio warning.
