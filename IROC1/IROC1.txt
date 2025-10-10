@@ -1,0 +1,14 @@
+Description: A program able to control and display information about locomotives along a small-scale railroad within a dinosaur park.
+
+Requirements:
+1- Block Sections 	: Indev
+2- Display Consist Info	: Indev
+3- Emergency Stop 	: Indev
+4- GUI			: Indev
+
+Requirement Explanations:
+1- Block Sections: Virtual or Physical Block sections to keep trains at a safe distance from each other.
+2- Display Consist Info: Show the data of the consist, such as weight, length, and locomotive information, fuel levels, and temperatures.
+3- Emergency Stop: The ability to remotely stop any single or all trains in case of emergency.
+   - Emergencies Include: Entering an Occupied Rail Block(R1), Engine Overheat, or Park Emergency
+4- GUI: An interactive display that shows all the above requirements in an easy-to-read way.
