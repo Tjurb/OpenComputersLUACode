@@ -8,7 +8,45 @@ Requirements:
 
 Requirement Explanations:
 1- Block Sections: Virtual or Physical Block sections to keep trains at a safe distance from each other.
-2- Display Consist Info: Show the data of the consist, such as weight, length, and locomotive information, fuel levels, and temperatures.
+2- Display Consist Info: Collect the data of the consist, such as weight, length, and locomotive information, fuel levels, and temperatures.
 3- Emergency Stop: The ability to remotely stop any single or all trains in case of emergency.
-   - Emergencies Include: Entering an Occupied Rail Block(R1), Engine Overheat, or Park Emergency
+   - Emergencies Include: Refer to Railroad Emergency List (ALL) or Park Emergency List (Marked with X)
 4- GUI: An interactive display that shows all the above requirements in an easy-to-read way.
+
+Railroad Emergency List: Highest (E3) to Lowest (E1)
+- Damaged Rail Section: E3 
+- Locomotive Overheat: E3
+- Locomotive entering occupied Block (Requirement 1): E2
+- Locomotive No Fuel: E2
+- Locomotive Low Fuel: E1
+
+Park Emergency List: Highest (E3) to Lowest (E1)
+- Wither Boss within 16 Chunks: E3 X
+- Exhibit Breach (Angry Dinosaur with Creeper Explosion): E3 X
+- Exhibit Breach (Happy Dinosaur + Creeper Explosion): E2 X
+- Hostile Entities within Park: E1 
+- Weather Alerts: 
+	- Blood Moon: E3 X
+	- Solar Eclipse: E2 X
+	- Thunderstorm: E2 X
+	- Rainstorm: E1
+- Cultivation Vat Failure: E1
+
+Internal Component List:
+- IR Radio Control Cards
+- Graphics Card
+- Network Card (Type TBD)
+	(For Incoming Park Emergency messages from Park Primary Computer)
+
+External Component List:
+- Adapter: for IR Detector and Controller Augments
+- Geolyzer: for Time Detection
+- Redstone IO Block: Daylight Sensor Detection
+	(Geolyzer + Daylight Sensor used for Weather Detection)
+
+GUI Display Requirements:
+1- Emergency Type displayed and highlighted based on type and level.
+	Park Colors: Dark Red, Orange, Yellow
+	RR Colors: Red, Lime, Gray
+2- General shape of RR displayed on screen, with locomotive position in block displayed. 
+3- Display information of a consist when selected (If able), if not, basic information is acceptable.

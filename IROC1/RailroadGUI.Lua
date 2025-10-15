@@ -5,6 +5,9 @@ local c = component.computer
 local De = component.ir_augment_detector
 local Co = component.ir_augment_control
 local RC = component.ir_remote_control
+local g = component.geolyzer
+local r = component.redstone
+local m = component.modem
 local event = require ("event")
 count = 0
 gpu.setResolution(160,50)
@@ -13,10 +16,11 @@ local w,h = gpu.getResolution()
 --Start Locomotive
 local function start()
     Co.setThrottle(0.7)
+    Co.setBrake(0)
 end
 
 --Stop Locomotive
-local function stop()
+local function stop(value)
     Co.setThrottle(0)
     Co.setBrake(0.5)
 end
@@ -25,6 +29,8 @@ end
 local function eStop()
     Co.setThrottle(-1)
     Co.setBrake(1)
+    RC.setThrottle(-1)
+    RC.setBrake(1)
 end
 
 --Get Consist Information
@@ -64,6 +70,10 @@ local function handleClick(x, y)
         c.beep()
         c.beep()
     elseif x >= 38 and x <= 64 and y >= 11 and y <= 13 then
+        -- "Stop one locomotive" button clicked
+        stop(value)
+        c.beep(500, 0.5)
+    elseif x >= 38 and x <= 64 and y >= 11 and y <= 13 then
         -- "EMERGENCY STOP!" button clicked
         eStop()
         c.beep(500, 0.5)
@@ -81,10 +91,11 @@ gpu.setBackground(0x000000)
 gpu.fill(1, 1, w, h, " ")  -- Clear the screen
 while true do
     -- Variables Used in GUI and Functions
-    blockA = 0 
-    blockB = 0
-    blockC = 0
-    blockD = 0
+    BlockS = 0
+    blockA = 1 
+    blockB = 2
+    blockC = 3
+    blockD = 4
 
     drawGUI()
     drawLocoPositions()
