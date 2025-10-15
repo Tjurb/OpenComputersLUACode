@@ -13,54 +13,41 @@ count = 0
 gpu.setResolution(160,50)
 local w,h = gpu.getResolution()
 
---Start Locomotive
-local function start()
-    Co.setThrottle(0.7)
-    Co.setBrake(0)
+--Set Train Addresses
+for address in component.list('ir_remote_control') do
+    
 end
 
---Stop Locomotive
-local function stop(value)
-    Co.setThrottle(0)
-    Co.setBrake(0.5)
+--Get Number of Consists
+function getNumCon()
+    local cList = {}
+    local value = 0
+    for address in component.list('ir_remote_control') do
+        local con = component.proxy(address)
+        table.insert(cList,con)
+    end
+    value = #cList
+    return (value)
 end
 
---EStop Locomotive
-local function eStop()
-    Co.setThrottle(-1)
-    Co.setBrake(1)
-    RC.setThrottle(-1)
-    RC.setBrake(1)
+--Set Consist Tag
+function setTags(value,int)
 end
 
---Get Consist Information
-local function getCon()
-    return (De.consist())
-end
-
---Set Consist Block Tag
-local function setTag(value)
-    return (De.setTag(value))
-end
-
---Get Consist Block Tag
-local function getTag()
-    return (De.getTag())
+--Get Consist Tag
+function getTag(value,int)
 end
 
 --Draw GUI
 local function drawGUI()
-    return (De.getTag())
 end
 
 --Draw Locomotive Positions in Block
 local function drawBlocks()
-    return (De.getTag())
 end
 
 --Draw Consist Stats
 local function drawConsist()
-    return (De.getTag())
 end
 
 -- Function to handle button click (From ReactorGUI)
@@ -69,14 +56,6 @@ local function handleClick(x, y)
         -- "Startup!" button clicked
         c.beep()
         c.beep()
-    elseif x >= 38 and x <= 64 and y >= 11 and y <= 13 then
-        -- "Stop one locomotive" button clicked
-        stop(value)
-        c.beep(500, 0.5)
-    elseif x >= 38 and x <= 64 and y >= 11 and y <= 13 then
-        -- "EMERGENCY STOP!" button clicked
-        eStop()
-        c.beep(500, 0.5)
     elseif x >= w-27 and x <= w-1 and y >= h-4 and y <= h-1 then
         -- "Exit Program" button clicked
 		c.beep(500, 0.5)
