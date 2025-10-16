@@ -2,52 +2,54 @@ local term = require ("term")
 local component = require ("component")
 local gpu = component.gpu
 local c = component.computer
-local De = component.ir_augment_detector
-local Co = component.ir_augment_control
 local RC = component.ir_remote_control
 local g = component.geolyzer
-local r = component.redstone
-local m = component.modem
+local re = component.redstone
+local r = component.relay
 local event = require ("event")
 count = 0
 gpu.setResolution(160,50)
 local w,h = gpu.getResolution()
+local locomotives = {}
 
---Set Train Addresses
-for address in component.list('ir_remote_control') do
-    
-end
-
---Get Number of Consists
-function getNumCon()
-    local cList = {}
-    local value = 0
-    for address in component.list('ir_remote_control') do
-        local con = component.proxy(address)
-        table.insert(cList,con)
+--Register Locomotives
+local function scanLocomotives()
+    local found = {}
+    for address in component.list("ir_remote_control") do
+        table.insert(found, address)
     end
-    value = #cList
-    return (value)
-end
 
---Set Consist Tag
-function setTags(value,int)
-end
+    -- Check for new locos and assign names
+    for _, address in ipairs(found) do
+        local alreadyExists = false
+        for _, loco in ipairs(locomotives) do
+            if loco.address == address then
+                alreadyExists = true
+                break
+            end
+        end
 
---Get Consist Tag
-function getTag(value,int)
-end
+        if not alreadyExists then
+            local name = "Loco" .. tostring(#locomotives + 1)
+            table.insert(locomotives, { name = name, address = address, proxy = component.proxy(address) })
+            print("Registered new locomotive: " .. name .. " (" .. address .. ")")
+        end
+    end
 
---Draw GUI
-local function drawGUI()
-end
-
---Draw Locomotive Positions in Block
-local function drawBlocks()
-end
-
---Draw Consist Stats
-local function drawConsist()
+    -- Remove entries for missing locos (in case one was removed)
+    for i = #locomotives, 1, -1 do
+        local exists = false
+        for _, address in ipairs(found) do
+            if locomotives[i].address == address then
+                exists = true
+                break
+            end
+        end
+        if not exists then
+            print("Removed missing locomotive: " .. locomotives[i].name)
+            table.remove(locomotives, i)
+        end
+    end
 end
 
 -- Function to handle button click (From ReactorGUI)
@@ -65,9 +67,14 @@ local function handleClick(x, y)
     end
 end
 
+--Function for drawingGUI
+local function drawGUI()
+end
+
 --Main loop
 gpu.setBackground(0x000000)
 gpu.fill(1, 1, w, h, " ")  -- Clear the screen
+scanLocomotives()
 while true do
     -- Variables Used in GUI and Functions
     BlockS = 0
@@ -77,8 +84,6 @@ while true do
     blockD = 4
 
     drawGUI()
-    drawLocoPositions()
-    drawConsist()
 
     local _, _, x, y, button, player = event.pull(1,"touch")
     if x and y then
