@@ -67,23 +67,58 @@ local function handleClick(x, y)
     end
 end
 
+--Function to identify and assign block sections
+local function setBlock(i)
+    --Station Block x,y
+    --A Block x,y
+    --B Block x,y
+    --C Block x,y
+    --D Block x,y
+    pos = locomotive[i].proxy.getPos()
+end
+
+--Function to get consist info
+local function getConsistInfo(i)
+    table = locomotive[i].proxy.getConsist()
+    print(table)
+end
+
+--Function to get locomotive info
+local function getLocoInfo(i)
+    info = locomotive[i].proxy.getInfo()
+    fuel = info.fluid_amount
+    max = info.fluid_max
+
+    fuelpercent = (fuel/max)
+    print(fuelpercent)
+end
+
 --Function for drawingGUI
 local function drawGUI()
+    --UpdateLocoList
+    scanLocomotives()
+    getLocoInfo(1)
+    getLocoInfo(2)
 end
+
+--Function for drawing route and loco positions
+local function drawRoute()
+    --Need full map to scale and define positions
+    --Rail route is a triangle with A ~400 meters away, B ~300 meters away, C ~200 meters away
+    --Vertical is minimum 700 meters, horizontal is minimum 400 meters
+    --Max GPU resolution 160wide, 50tall
+    --Route Resolution 30wide, 40tall?
+end
+
 
 --Main loop
 gpu.setBackground(0x000000)
 gpu.fill(1, 1, w, h, " ")  -- Clear the screen
 scanLocomotives()
 while true do
-    -- Variables Used in GUI and Functions
-    BlockS = 0
-    blockA = 1 
-    blockB = 2
-    blockC = 3
-    blockD = 4
 
     drawGUI()
+    drawRoute()
 
     local _, _, x, y, button, player = event.pull(1,"touch")
     if x and y then
