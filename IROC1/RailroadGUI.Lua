@@ -74,27 +74,24 @@ local function setBlock(i)
     --B Block x,y
     --C Block x,y
     --D Block x,y
-    pos = locomotive[i].proxy.getPos()
+    pos = locomotives[i].proxy.getPos()
 end
 
 --Function to get consist info
 local function getConsistInfo(i)
-    table = locomotive[i].proxy.getConsist()
+    table = locomotives[i].proxy.getConsist()
     print(table)
 end
 
 --Function to get locomotive info
 local function getLocoInfo(i)
-    info = locomotive[i].proxy.getInfo()
-    fuel = info.fluid_amount
-    max = info.fluid_max
-
-    fuelpercent = (fuel/max)
-    print(fuelpercent)
+    table = locomotives[i].proxy.info()
+	print(table)
 end
 
 --Function for drawingGUI
 local function drawGUI()
+	gpu.fill(w-27, h-4, w-1, h-1, "X")  -- Clear the screen
     --UpdateLocoList
     scanLocomotives()
     getLocoInfo(1)
